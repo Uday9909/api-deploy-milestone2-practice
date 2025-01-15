@@ -1,15 +1,16 @@
 const express = require('express');
-const { resolve } = require('path');
+require('dotenv').config();
 
 const app = express();
-const port = 3010;
-
-app.use(express.static('static'));
+const port = 3000;
 
 app.get('/', (req, res) => {
-  res.sendFile(resolve(__dirname, 'pages/index.html'));
+  if (process.env.IS_ADMIN === 'true') {
+    res.send({ message: "Welcome, Venom!", data: ["god of the skies", "australian"] });
+  } else {
+    res.send({ message: "Welcome, Lucifer!", data: ["ruler of the underworld", "british"] });
+  }
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+app.listen(3000, () => console.log(`Server is runnning on local host http://localhost:${port}
+`));
